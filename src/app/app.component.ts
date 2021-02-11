@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User, UserService } from './app.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [UserService]
 })
-export class AppComponent {
-  title = 'angular-github';
+export class AppComponent implements OnInit {
+  title = 'Users list';
+  users: User[] = [];
+
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.userService.getUser().then(users => this.users = users)
+  }
+
 }
